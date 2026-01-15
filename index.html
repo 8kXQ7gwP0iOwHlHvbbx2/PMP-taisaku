@@ -3,142 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMP試験 対策アプリ</title>
+    <title>PMP Ultimate Prep</title>
     <style>
         :root { 
-            --primary: #2c3e50; --secondary: #3498db; --success: #27ae60; --danger: #e74c3c; --bg: #f4f7f6; --text: #333;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
+
         body { 
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; 
-            background: var(--bg); color: var(--text); margin: 0; padding: 10px; display: flex; justify-content: center;
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: var(--bg-gradient); color: var(--text-main);
+            margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
         }
+
         .container { 
-            width: 100%; max-width: 700px; background: #fff; padding: 20px; border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-top: 10px; position: relative; min-height: 500px;
+            width: 100%; max-width: 650px; background: var(--glass-bg); padding: 32px 24px;
+            border-radius: 24px; box-shadow: var(--card-shadow); margin: 20px 10px; position: relative;
         }
 
-        /* ダッシュボード */
+        h1 { font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 32px; letter-spacing: -0.025em; }
+
+        /* モダン・ダッシュボード */
         .dashboard {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px;
-            background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;
+            display: flex; gap: 16px; margin-bottom: 32px;
         }
-        .stat-item { text-align: center; }
-        .stat-value { display: block; font-size: 1.5rem; font-weight: bold; color: var(--secondary); }
-        .stat-label { font-size: 11px; color: #7f8c8d; }
-
-        /* ヘッダー */
-        .quiz-header {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;
+        .stat-card {
+            flex: 1; background: #fff; padding: 16px; border-radius: 16px;
+            border: 1px solid #f1f5f9; text-align: center;
         }
-        .info-area { flex: 1; padding-right: 15px; }
-        .id-progress { font-size: 12px; color: #7f8c8d; display: block; margin-bottom: 4px; }
-        .category-name { font-size: 14px; font-weight: bold; color: var(--primary); line-height: 1.4; word-break: break-all; }
+        .stat-value { display: block; font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-label { font-size: 12px; font-weight: 600; color: var(--text-sub); text-transform: uppercase; }
 
-        .btn-home-icon { 
-            background: #95a5a6; width: 44px; height: 44px; min-width: 44px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; border-radius: 50%; border: none; cursor: pointer; color: white;
-        }
-
-        /* メニュー */
-        .menu-stack { display: flex; flex-direction: column; gap: 12px; }
+        /* メニューボタン */
+        .menu-stack { display: flex; flex-direction: column; gap: 14px; }
         button { 
-            padding: 16px; font-size: 16px; font-weight: bold; cursor: pointer; border: none; 
-            border-radius: 10px; transition: all 0.2s; background: var(--secondary); color: white;
+            padding: 18px; font-size: 16px; font-weight: 700; cursor: pointer; border: none; 
+            border-radius: 14px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fff; color: var(--text-main); border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-        .btn-resume { background: #2ecc71 !important; }
-        .btn-review { background: #e74c3c !important; }
-        .btn-category { background: #9b59b6 !important; }
-        .btn-random { background: #e67e22 !important; }
-        .btn-stats { background: #f1c40f !important; color: #333 !important; }
-        .hidden { display: none; }
+        button:active { transform: scale(0.98); }
+        
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: var(--success); color: white; border: none; }
+        .btn-danger { background: #fee2e2; color: var(--danger); border: none; }
+        .btn-warning { background: #fef3c7; color: #92400e; border: none; }
 
-        /* クイズ画面 */
-        #question-text { font-size: 17px; font-weight: bold; margin-bottom: 20px; line-height: 1.6; }
-        .option-btn { 
-            display: block; width: 100%; text-align: left; margin: 10px 0; padding: 15px; 
-            background: #fff; color: var(--text); border: 2px solid #edf2f7; border-radius: 10px; 
-            font-size: 15px; line-height: 1.4;
+        /* クイズUI */
+        .header-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .category-tag { background: #eef2ff; color: var(--primary); padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; }
+        
+        #question-text { font-size: 18px; line-height: 1.6; font-weight: 700; margin-bottom: 24px; }
+
+        .option-btn {
+            text-align: left; background: #fff; border: 2px solid #f1f5f9; 
+            margin-bottom: 12px; font-weight: 500; font-size: 15px;
         }
+        .option-btn:hover { border-color: var(--primary); background: #f5f3ff; }
         .option-btn.correct { background: var(--success) !important; color: white; border-color: var(--success); }
         .option-btn.wrong { background: var(--danger) !important; color: white; border-color: var(--danger); }
-        
-        .result-box { margin-top: 20px; padding: 18px; border-radius: 10px; background: #f8fafc; border-left: 5px solid #cbd5e0; }
-        .search-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .search-link { 
-            flex: 1; min-width: 140px; text-align: center; padding: 10px; background: #4285f4; 
-            color: white; text-decoration: none; border-radius: 6px; font-size: 13px; display: flex; align-items: center; justify-content: center;
+
+        .feedback-card {
+            background: #f8fafc; border-radius: 16px; padding: 20px; margin-top: 24px;
+            border-left: 4px solid var(--primary);
         }
 
-        @media (max-width: 480px) {
-            .container { padding: 15px; border-radius: 0; min-height: 100vh; margin-top: 0; }
+        .search-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+        .search-btn {
+            padding: 10px; font-size: 12px; text-decoration: none; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; font-weight: 600;
         }
+
+        .home-icon {
+            width: 40px; height: 40px; background: #f1f5f9; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="home-screen">
-        <h1 style="text-align:center;">PMP対策ダッシュボード</h1>
+        <h1>PMP Ultimate Prep</h1>
         
         <div id="dashboard" class="dashboard hidden">
-            <div class="stat-item">
-                <span class="stat-label">学習進捗率</span>
+            <div class="stat-card">
                 <span id="overall-progress" class="stat-value">0%</span>
+                <span class="stat-label">Progress</span>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">平均正解率</span>
+            <div class="stat-card">
                 <span id="overall-accuracy" class="stat-value">0%</span>
+                <span class="stat-label">Accuracy</span>
             </div>
         </div>
 
-        <div id="loading-status" style="text-align:center; padding:20px;">データを読み込んでいます...</div>
+        <div id="loading-status" style="text-align:center; color: var(--text-sub);">Loading assets...</div>
         
         <div class="menu-stack hidden" id="main-menu">
-            <button onclick="startQuiz('order')">最初から解く</button>
-            <button id="resume-btn" onclick="resumeQuiz()" class="btn-resume" style="display:none;">前回の続きから解く</button>
-            <button id="review-btn" onclick="startQuiz('review')" class="btn-review hidden">間違えた問題を復習する (<span id="wrong-count">0</span>)</button>
-            <button onclick="showCategoryMenu()" class="btn-category">カテゴリを選択して解く</button>
-            <button onclick="startQuiz('random')" class="btn-random">問題をランダムに解く</button>
-            <button onclick="showStats()" class="btn-stats">成績表・合格判定</button>
+            <button class="btn-primary" onclick="startQuiz('order')">最初から解く</button>
+            <button id="resume-btn" onclick="resumeQuiz()" class="btn-success" style="display:none;">前回の続きから解く</button>
+            <button id="review-btn" onclick="startQuiz('review')" class="btn-danger hidden">間違えた問題を復習する (<span id="wrong-count">0</span>)</button>
+            <button class="btn-warning" onclick="showCategoryMenu()">カテゴリを選択して解く</button>
+            <button onclick="startQuiz('random')">問題をランダムに解く</button>
+            <button style="background: #f1f5f9;" onclick="showStats()">成績表・合格判定</button>
         </div>
     </div>
 
     <div id="category-screen" class="hidden">
-        <div class="quiz-header">
-            <div class="info-area"><span class="category-name">カテゴリ選択</span></div>
-            <button class="btn-home-icon" onclick="showHome()">🏠</button>
+        <div class="header-nav">
+            <span class="category-tag">Categories</span>
+            <div class="home-icon" onclick="showHome()">🏠</div>
         </div>
         <div id="category-list" class="menu-stack"></div>
     </div>
 
     <div id="quiz-screen" class="hidden">
-        <div class="quiz-header">
-            <div class="info-area">
-                <span id="progress-text" class="id-progress"></span>
-                <span id="category-label" class="category-name"></span>
-            </div>
-            <button class="btn-home-icon" onclick="confirmGoHome()">🏠</button>
+        <div class="header-nav">
+            <div id="progress-text" style="font-size: 12px; font-weight: 600; color: var(--text-sub);"></div>
+            <div class="home-icon" onclick="confirmGoHome()">🏠</div>
         </div>
+        <div id="category-label" class="category-tag" style="margin-bottom: 12px; display: inline-block;"></div>
         <div id="question-text"></div>
         <div id="options-container"></div>
+        
         <div id="feedback-container" class="hidden">
-            <div id="result-msg" class="result-box"></div>
-            <div class="search-actions" id="search-buttons"></div>
-            <button onclick="nextQuestion()" style="width:100%; margin-top:25px; background:var(--primary);">次の問題へ</button>
+            <div class="feedback-card">
+                <div id="result-msg"></div>
+                <div class="search-grid" id="search-buttons"></div>
+            </div>
+            <button class="btn-primary" onclick="nextQuestion()" style="width:100%; margin-top:20px;">NEXT QUESTION</button>
         </div>
     </div>
 
     <div id="stats-screen" class="hidden">
-        <div class="quiz-header">
-            <div class="info-area"><span class="category-name">成績表・合格判定</span></div>
-            <button class="btn-home-icon" onclick="showHome()">🏠</button>
+        <div class="header-nav">
+            <span class="category-tag">Performance Result</span>
+            <div class="home-icon" onclick="showHome()">🏠</div>
         </div>
-        <div id="total-status" style="padding:15px; border-radius:10px; text-align:center; font-weight:bold; margin-bottom:20px;"></div>
+        <div id="total-status" style="padding:24px; border-radius:16px; text-align:center; font-weight:800; margin-bottom:24px;"></div>
         <div style="overflow-x: auto;">
-            <table style="width:100%; border-collapse: collapse; font-size:13px;" id="stats-table">
-                <thead style="border-bottom:2px solid #eee;"><tr><th>カテゴリ</th><th>正解/解答</th><th>率</th></tr></thead>
+            <table style="width:100%; border-collapse: separate; border-spacing: 0 8px; font-size:14px;" id="stats-table">
+                <thead><tr style="color: var(--text-sub);"><th>Category</th><th>Score</th><th>Rate</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
@@ -153,7 +169,6 @@ let scoreData = JSON.parse(localStorage.getItem('pmpStats')) || {};
 let wrongQuestionIds = JSON.parse(localStorage.getItem('pmpWrongIds')) || [];
 let answeredQuestionIds = JSON.parse(localStorage.getItem('pmpAnsweredIds')) || [];
 
-// 文字列から余計な二重引用符を除去する関数
 function cleanStr(str) {
     if (!str) return "";
     return str.toString().replace(/\\"/g, '"').replace(/^"/, '').replace(/"$/, '').trim();
@@ -163,9 +178,7 @@ async function initApp() {
     try {
         const response = await fetch('./PMP.json');
         const rawData = await response.json();
-        
         allQuestions = rawData.map((q, idx) => {
-            // JSON内のキー名が引用符付きの場合に対応
             const getVal = (key) => q[key] || q[`"${key}"`] || q[`\\"${key}\\"`];
             return {
                 id: idx,
@@ -173,44 +186,34 @@ async function initApp() {
                 category: cleanStr(getVal("Category")),
                 question: cleanStr(getVal("Question")),
                 options: {
-                    A: cleanStr(getVal("Option_A")),
-                    B: cleanStr(getVal("Option_B")),
-                    C: cleanStr(getVal("Option_C")),
-                    D: cleanStr(getVal("Option_D"))
+                    A: cleanStr(getVal("Option_A")), B: cleanStr(getVal("Option_B")),
+                    C: cleanStr(getVal("Option_C")), D: cleanStr(getVal("Option_D"))
                 },
                 answer: cleanStr(getVal("Answer")).toUpperCase().replace(/[^A-D]/g, ''),
                 explanation: cleanStr(getVal("Explanation"))
             };
         });
-
         document.getElementById('loading-status').classList.add('hidden');
         document.getElementById('main-menu').classList.remove('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
         updateHomeUI();
     } catch (err) {
-        document.getElementById('loading-status').innerHTML = "⚠️ データ読み込みエラー";
+        document.getElementById('loading-status').innerHTML = "⚠️ ERROR: PMP.json not found.";
     }
 }
 
 function updateHomeUI() {
-    const totalCount = allQuestions.length;
-    const progressPercent = totalCount > 0 ? Math.round((answeredQuestionIds.length / totalCount) * 100) : 0;
-    document.getElementById('overall-progress').innerText = progressPercent + "%";
-
-    let totalCorrect = 0, totalAnswered = 0;
-    for(let cat in scoreData) {
-        totalCorrect += scoreData[cat].correct;
-        totalAnswered += scoreData[cat].total;
-    }
-    const accuracyPercent = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
-    document.getElementById('overall-accuracy').innerText = accuracyPercent + "%";
-
+    const total = allQuestions.length;
+    document.getElementById('overall-progress').innerText = total > 0 ? Math.round((answeredQuestionIds.length / total) * 100) + "%" : "0%";
+    let tc = 0, ta = 0;
+    for(let cat in scoreData) { tc += scoreData[cat].correct; ta += scoreData[cat].total; }
+    document.getElementById('overall-accuracy').innerText = ta > 0 ? Math.round((tc / ta) * 100) + "%" : "0%";
     document.getElementById('resume-btn').style.display = localStorage.getItem('pmpProgress') ? 'block' : 'none';
-    const reviewBtn = document.getElementById('review-btn');
+    const rb = document.getElementById('review-btn');
     if (wrongQuestionIds.length > 0) {
-        reviewBtn.classList.remove('hidden');
+        rb.classList.remove('hidden');
         document.getElementById('wrong-count').innerText = wrongQuestionIds.length;
-    } else reviewBtn.classList.add('hidden');
+    } else rb.classList.add('hidden');
 }
 
 function showHome() {
@@ -219,28 +222,22 @@ function showHome() {
     updateHomeUI();
 }
 
-function confirmGoHome() {
-    if (confirm("表紙に戻りますか？")) showHome();
-}
+function confirmGoHome() { if (confirm("Progress is saved. Return to home?")) showHome(); }
 
 function startQuiz(mode, catName = null) {
     currentIndex = 0;
-    if (mode === 'random') {
-        currentQuiz = [...allQuestions].sort(() => Math.random() - 0.5);
-    } else if (mode === 'order') {
+    if (mode === 'random') currentQuiz = [...allQuestions].sort(() => Math.random() - 0.5);
+    else if (mode === 'order') {
         const cats = [...new Set(allQuestions.map(q => q.category))];
         currentQuiz = [];
         cats.forEach(c => {
             const filtered = allQuestions.filter(q => q.category === c).sort(() => Math.random() - 0.5);
             currentQuiz = currentQuiz.concat(filtered);
         });
-    } else if (mode === 'review') {
-        currentQuiz = allQuestions.filter(q => wrongQuestionIds.includes(q.id)).sort(() => Math.random() - 0.5);
-    } else {
-        currentQuiz = allQuestions.filter(q => q.category === catName).sort(() => Math.random() - 0.5);
-    }
+    } else if (mode === 'review') currentQuiz = allQuestions.filter(q => wrongQuestionIds.includes(q.id)).sort(() => Math.random() - 0.5);
+    else currentQuiz = allQuestions.filter(q => q.category === catName).sort(() => Math.random() - 0.5);
     
-    if (currentQuiz.length === 0) return alert("問題がありません。");
+    if (currentQuiz.length === 0) return alert("No questions found.");
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('quiz-screen').classList.remove('hidden');
     renderQuestion();
@@ -248,14 +245,12 @@ function startQuiz(mode, catName = null) {
 
 function renderQuestion() {
     const q = currentQuiz[currentIndex];
-    document.getElementById('progress-text').innerText = `Progress: ${currentIndex + 1}/${currentQuiz.length}`;
-    document.getElementById('category-label').innerText = `${q.domain} / ${q.category}`;
+    document.getElementById('progress-text').innerText = `STEP ${currentIndex + 1} OF ${currentQuiz.length}`;
+    document.getElementById('category-label').innerText = q.category;
     document.getElementById('question-text').innerText = q.question;
     document.getElementById('feedback-container').classList.add('hidden');
     
-    // 回答選択肢をシャッフル
     const opts = Object.entries(q.options).map(([key, text]) => ({ key, text })).sort(() => Math.random() - 0.5);
-
     const container = document.getElementById('options-container');
     container.innerHTML = '';
     opts.forEach(opt => {
@@ -271,7 +266,6 @@ function renderQuestion() {
 function checkAnswer(selectedKey, q, selectedText) {
     const isCorrect = (selectedKey === q.answer);
     const correctText = q.options[q.answer];
-    
     document.querySelectorAll('.option-btn').forEach(btn => {
         btn.disabled = true;
         if (btn.innerText === correctText) btn.classList.add('correct');
@@ -294,12 +288,12 @@ function checkAnswer(selectedKey, q, selectedText) {
 
     document.getElementById('feedback-container').classList.remove('hidden');
     document.getElementById('result-msg').innerHTML = `
-        <strong style="color:${isCorrect ? 'var(--success)' : 'var(--danger)'}; font-size:1.2rem;">${isCorrect ? '⭕ 正解' : '❌ 不正解'}</strong>
-        <p style="margin-top:10px; font-size:14px; color:#555;">${q.explanation}</p>`;
+        <div style="font-weight:800; font-size:20px; color:${isCorrect ? 'var(--success)' : 'var(--danger)'}">${isCorrect ? 'EXCELLENT!' : 'INCORRECT'}</div>
+        <div style="margin-top:8px; font-size:14px; color:var(--text-sub);">${q.explanation}</div>`;
 
     const searchArea = document.getElementById('search-buttons');
-    searchArea.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP ' + correctText)}" target="_blank" class="search-link">🔎 正答を検索</a>`;
-    if(!isCorrect) searchArea.innerHTML += `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP ' + selectedText)}" target="_blank" class="search-link" style="background:#ea4335">🔎 選んだ誤答を検索</a>`;
+    searchArea.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP ' + correctText)}" target="_blank" class="search-btn" style="background:var(--primary); color:white;">LEARN MORE</a>`;
+    if(!isCorrect) searchArea.innerHTML += `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP ' + selectedText)}" target="_blank" class="search-btn" style="background:#e2e8f0; color:var(--text-main);">SEARCH ERROR</a>`;
 
     localStorage.setItem('pmpProgress', JSON.stringify({ currentIndex: currentIndex + 1, currentQuiz }));
 }
@@ -307,18 +301,13 @@ function checkAnswer(selectedKey, q, selectedText) {
 function nextQuestion() {
     currentIndex++;
     if(currentIndex < currentQuiz.length) renderQuestion();
-    else {
-        localStorage.removeItem('pmpProgress');
-        alert("セッション終了。成績を確認しましょう。");
-        showStats();
-    }
+    else { localStorage.removeItem('pmpProgress'); alert("Session Completed!"); showStats(); }
 }
 
 function resumeQuiz() {
     const saved = JSON.parse(localStorage.getItem('pmpProgress'));
     if(saved) {
-        currentQuiz = saved.currentQuiz;
-        currentIndex = saved.currentIndex;
+        currentQuiz = saved.currentQuiz; currentIndex = saved.currentIndex;
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
         renderQuestion();
@@ -333,8 +322,7 @@ function showCategoryMenu() {
     list.innerHTML = '';
     categories.forEach(cat => {
         const btn = document.createElement('button');
-        btn.innerText = cat;
-        btn.onclick = () => startQuiz('category', cat);
+        btn.innerText = cat; btn.onclick = () => startQuiz('category', cat);
         list.appendChild(btn);
     });
 }
@@ -344,22 +332,19 @@ function showStats() {
     document.getElementById('stats-screen').classList.remove('hidden');
     const tbody = document.querySelector('#stats-table tbody');
     tbody.innerHTML = '';
-    let totalCorrect = 0, totalAnswered = 0;
+    let tc = 0, ta = 0;
     for(let cat in scoreData) {
         const row = tbody.insertRow();
         const {correct, total} = scoreData[cat];
-        totalCorrect += correct; totalAnswered += total;
-        row.insertCell(0).innerText = cat;
-        row.insertCell(1).innerText = `${correct}/${total}`;
-        row.insertCell(2).innerText = `${((correct / total) * 100).toFixed(1)}%`;
+        tc += correct; ta += total;
+        row.innerHTML = `<td>${cat}</td><td>${correct}/${total}</td><td style="font-weight:700">${((correct/total)*100).toFixed(1)}%</td>`;
     }
+    const rate = ta > 0 ? ((tc / ta) * 100).toFixed(1) : 0;
+    const isPass = rate >= 70;
     const statusDiv = document.getElementById('total-status');
-    if (totalAnswered > 0) {
-        const rate = ((totalCorrect / totalAnswered) * 100).toFixed(1);
-        const isPass = rate >= 70; // 70%ラインに変更
-        statusDiv.style.background = isPass ? "#d4edda" : "#f8d7da";
-        statusDiv.innerHTML = `総合正答率: ${rate}%<br>${isPass ? '🎉 合格ライン(70%)を超えています！' : '💪 合格ライン(70%)まであと少し！'}`;
-    } else statusDiv.innerHTML = "データがありません。";
+    statusDiv.style.background = isPass ? "#dcfce7" : "#fee2e2";
+    statusDiv.style.color = isPass ? "#166534" : "#991b1b";
+    statusDiv.innerHTML = `<div style="font-size:12px; opacity:0.7">OVERALL SCORE</div><div style="font-size:32px">${rate}%</div><div>${isPass ? 'PASSING LEVEL' : 'KEEP STUDYING'}</div>`;
 }
 
 initApp();
