@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PMP Ultimate Prep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
             --glass-bg: #ffffff;
@@ -12,52 +13,56 @@
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --text-main: #1e293b;
-            --text-sub: #64748b;
+            --text-main: #1e293b; /* 視認性の高い濃いグレー */
+            --text-sub: #475569;
             --border-color: #e2e8f0;
             --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         body { 
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-gradient); color: var(--text-main);
+            /* 日本語の読みやすさを追求したフォントスタック */
+            font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background: var(--bg-gradient); 
+            color: var(--text-main);
             margin: 0; min-height: 100vh; display: flex; justify-content: center;
+            line-height: 1.6; /* 全体的に行間を広げて可読性アップ */
         }
 
         .container { 
-            width: 100%; max-width: 600px; background: var(--glass-bg); padding: 24px;
+            width: 100%; max-width: 600px; background: var(--glass-bg); padding: 32px 24px;
             border-radius: 20px; box-shadow: var(--card-shadow); margin: 20px 10px; align-self: flex-start;
         }
 
-        h1 { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 24px; }
+        h1 { font-size: 24px; font-weight: 900; text-align: center; margin-bottom: 24px; letter-spacing: -0.02em; }
 
         .dashboard { display: flex; gap: 12px; margin-bottom: 24px; }
         .stat-card {
-            flex: 1; background: #f8fafc; padding: 12px; border-radius: 12px;
+            flex: 1; background: #f8fafc; padding: 16px; border-radius: 12px;
             border: 1px solid var(--border-color); text-align: center;
         }
-        .stat-value { display: block; font-size: 22px; font-weight: 800; color: var(--primary); }
-        .stat-label { font-size: 11px; font-weight: 600; color: var(--text-sub); }
+        .stat-value { display: block; font-size: 24px; font-weight: 700; color: var(--primary); font-family: 'Inter', sans-serif; }
+        .stat-label { font-size: 11px; font-weight: 700; color: var(--text-sub); }
 
         .menu-stack { display: flex; flex-direction: column; gap: 12px; }
         button { 
             padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; border: none; 
             border-radius: 12px; transition: all 0.2s; background: #fff; border: 1px solid var(--border-color);
+            font-family: inherit;
         }
         
         .btn-primary { background: var(--primary); color: white; border: none; }
         .btn-success { background: var(--success); color: white; border: none; }
         .btn-danger { background: #fee2e2; color: var(--danger); border: none; }
         .btn-warning { background: #fef3c7; color: #92400e; border: none; }
-        /* 最後のメッセージ用：少し落ち着いたデザイン */
-        .btn-info { background: #f1f5f9; color: #475569; border: 1px dashed #cbd5e0; margin-top: 10px; }
+        .btn-info { background: #f1f5f9; color: #475569; border: 1px dashed #cbd5e0; margin-top: 10px; font-size: 14px; }
 
         .option-btn {
             display: block; width: 100%; text-align: left;
             background: #fff; border: 2px solid #f1f5f9; 
-            margin-bottom: 12px; font-size: 15px; padding: 16px;
-            color: var(--text-main); line-height: 1.4;
+            margin-bottom: 12px; font-size: 15px; padding: 18px;
+            color: var(--text-main); font-weight: 500;
         }
         .option-btn:hover:not([disabled]) { border-color: var(--primary); background: var(--primary-light); }
         .option-btn.correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
@@ -70,41 +75,38 @@
             z-index: 1000; padding: 20px; backdrop-filter: blur(4px);
         }
         .modal-content {
-            background: white; padding: 28px; border-radius: 24px; max-width: 500px;
+            background: white; padding: 32px; border-radius: 24px; max-width: 500px;
             width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
         .modal-body { font-size: 15px; line-height: 1.8; color: var(--text-main); }
-        .modal-body b { color: var(--primary); font-weight: 800; }
-        .modal-body ul { padding-left: 0; list-style: none; margin-top: 15px; }
+        .modal-body b { color: var(--primary); font-weight: 700; }
+        .modal-body ul { padding-left: 0; list-style: none; margin-top: 20px; }
         .modal-body li { 
-            margin-bottom: 12px; padding: 10px; background: #f8fafc; 
-            border-radius: 8px; border-left: 4px solid var(--primary);
+            margin-bottom: 12px; padding: 12px; background: #f8fafc; 
+            border-radius: 10px; border-left: 4px solid var(--primary);
+        }
+
+        /* 設問テキストの強調 */
+        #question-text { 
+            font-size: 18px; line-height: 1.7; font-weight: 700; margin-bottom: 24px; 
+            color: var(--text-main);
         }
 
         .header-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .category-tag { background: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; }
-        .home-icon { width: 40px; height: 40px; background: #f1f5f9; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .category-tag { background: var(--primary-light); color: var(--primary); padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 700; }
+        .home-icon { width: 44px; height: 44px; background: #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; }
 
         .hidden { display: none; }
     </style>
 </head>
 <body>
-
-<div class="container">
+    <div class="container">
     <div id="home-screen">
         <h1>PMP Ultimate Prep</h1>
-        
         <div id="dashboard" class="dashboard hidden">
-            <div class="stat-card">
-                <span id="overall-progress" class="stat-value">0%</span>
-                <span class="stat-label">学習進捗率</span>
-            </div>
-            <div class="stat-card">
-                <span id="overall-accuracy" class="stat-value">0%</span>
-                <span class="stat-label">平均正解率</span>
-            </div>
+            <div class="stat-card"><span id="overall-progress" class="stat-value">0%</span><span class="stat-label">学習進捗率</span></div>
+            <div class="stat-card"><span id="overall-accuracy" class="stat-value">0%</span><span class="stat-label">平均正解率</span></div>
         </div>
-
         <div class="menu-stack hidden" id="main-menu">
             <button class="btn-primary" onclick="startQuiz('order')">最初から解く</button>
             <button id="resume-btn" onclick="resumeQuiz()" class="btn-success" style="display:none;">前回の続きから解く</button>
@@ -112,7 +114,6 @@
             <button class="btn-warning" onclick="showCategoryMenu()">カテゴリを選択して解く</button>
             <button onclick="startQuiz('random')">問題をランダムに解く</button>
             <button style="background: #f1f5f9;" onclick="showStats()">成績表・合格判定</button>
-            
             <button class="btn-info" onclick="toggleModal(true)">✨ PMP合格に向けた最後のメッセージ</button>
         </div>
         <div id="loading-status" style="text-align:center; padding: 20px;">Loading assets...</div>
@@ -122,7 +123,6 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-body">
                 <h3 style="margin-top:0; color:var(--primary); text-align:center;">PMP合格へのマインドセット</h3>
-                
                 <p>ここまで作成した問題集は、単なる知識の暗記ではなく、<b>「PMとしてどう判断すべきか（PM Mindset）」</b>を問うものばかりです。試験本番では、迷ったときに以下の原則を思い出してください。</p>
                 <ul>
                     <li>🔍 <b>常に影響を評価せよ</b><br><small>（いきなり行動せず、まずは状況を分析する）</small></li>
@@ -130,7 +130,6 @@
                     <li>💎 <b>価値に集中せよ</b><br><small>（形式的なドキュメントより、ビジネス成果を重視）</small></li>
                     <li>🤝 <b>人々を尊重せよ</b><br><small>（命令ではなくサーバント・リーダーシップ）</small></li>
                 </ul>
-                
             </div>
             <button class="btn-primary" onclick="toggleModal(false)" style="width:100%; margin-top:20px;">理解しました</button>
         </div>
@@ -140,6 +139,7 @@
         <div class="header-nav"><span class="category-tag">カテゴリ選択</span><div class="home-icon" onclick="showHome()">🏠</div></div>
         <div id="category-list" class="menu-stack"></div>
     </div>
+
     <div id="quiz-screen" class="hidden">
         <div class="header-nav"><div id="progress-text" style="font-size:12px; font-weight:700; color:var(--text-sub);"></div><div class="home-icon" onclick="confirmGoHome()">🏠</div></div>
         <div id="category-label" class="category-tag" style="margin-bottom:12px;"></div>
@@ -150,28 +150,23 @@
             <button class="btn-primary" onclick="nextQuestion()" style="width:100%; margin-top:20px;">次の問題へ</button>
         </div>
     </div>
+
     <div id="stats-screen" class="hidden">
         <div class="header-nav"><span class="category-tag">成績・合格判定</span><div class="home-icon" onclick="showHome()">🏠</div></div>
         <div id="total-status" style="padding:20px; border-radius:12px; text-align:center; font-weight:800; margin-bottom:20px;"></div>
-        <table id="stats-table" style="width:100%; font-size:14px; border-collapse:collapse;"><thead><tr style="color:var(--text-sub); text-align:left;"><th>カテゴリ</th><th>正解</th><th>率</th></tr></thead><tbody></tbody></table>
+        <table id="stats-table" style="width:100%; font-size:14px; border-collapse:collapse;"><thead><tr style="color:var(--text-sub); text-align:left;"><th style="padding:10px;">カテゴリ</th><th style="padding:10px;">正解</th><th style="padding:10px;">率</th></tr></thead><tbody></tbody></table>
     </div>
 </div>
 
 <script>
-// JavaScriptロジックは前回と同様（省略せずにすべて含まれています）
+// ロジック（全コードをここに維持）
 let allQuestions = [], currentQuiz = [], currentIndex = 0;
 let scoreData = JSON.parse(localStorage.getItem('pmpStats')) || {};
 let wrongQuestionIds = JSON.parse(localStorage.getItem('pmpWrongIds')) || [];
 let answeredQuestionIds = JSON.parse(localStorage.getItem('pmpAnsweredIds')) || [];
 
-function toggleModal(show) {
-    document.getElementById('message-modal').classList.toggle('hidden', !show);
-}
-
-function cleanStr(str) {
-    if (!str) return "";
-    return str.toString().replace(/\\"/g, '"').replace(/^"/, '').replace(/"$/, '').trim();
-}
+function toggleModal(show) { document.getElementById('message-modal').classList.toggle('hidden', !show); }
+function cleanStr(str) { if (!str) return ""; return str.toString().replace(/\\"/g, '"').replace(/^"/, '').replace(/"$/, '').trim(); }
 
 async function initApp() {
     try {
@@ -192,7 +187,7 @@ async function initApp() {
         document.getElementById('main-menu').classList.remove('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
         updateHomeUI();
-    } catch (err) { document.getElementById('loading-status').innerText = "⚠️ PMP.jsonが見つかりません。"; }
+    } catch (err) { document.getElementById('loading-status').innerText = "⚠️ JSON load error."; }
 }
 
 function updateHomeUI() {
@@ -228,7 +223,7 @@ function startQuiz(mode, catName = null) {
     } else if (mode === 'review') currentQuiz = allQuestions.filter(q => wrongQuestionIds.includes(q.id)).sort(() => Math.random() - 0.5);
     else currentQuiz = allQuestions.filter(q => q.category === catName).sort(() => Math.random() - 0.5);
     
-    if (currentQuiz.length === 0) return alert("問題がありません。");
+    if (currentQuiz.length === 0) return alert("No questions.");
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('quiz-screen').classList.remove('hidden');
     renderQuestion();
@@ -273,17 +268,17 @@ function checkAnswer(k, q, txt) {
     localStorage.setItem('pmpWrongIds', JSON.stringify(wrongQuestionIds));
 
     document.getElementById('feedback-container').classList.remove('hidden');
-    document.getElementById('result-msg').innerHTML = `<b style="font-size:18px; color:${isC?'var(--success)':'var(--danger)'}">${isC?'⭕ 正解':'❌ 不正解'}</b><p style="font-size:14px; margin-top:8px;">${q.explanation}</p>`;
+    document.getElementById('result-msg').innerHTML = `<b style="font-size:18px; color:${isC?'var(--success)':'var(--danger)'}">${isC?'⭕ 正解':'❌ 不正解'}</b><p style="font-size:14px; margin-top:8px; line-height:1.6;">${q.explanation}</p>`;
     const sBtn = document.getElementById('search-buttons');
-    sBtn.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP '+cTxt)}" target="_blank" style="background:var(--primary); color:white; text-decoration:none; padding:10px; border-radius:8px; text-align:center; font-size:12px; font-weight:700;">正答を検索</a>`;
-    if(!isC) sBtn.innerHTML += `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP '+txt)}" target="_blank" style="background:#e2e8f0; color:var(--text-main); text-decoration:none; padding:10px; border-radius:8px; text-align:center; font-size:12px; font-weight:700;">誤答を検索</a>`;
+    sBtn.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP '+cTxt)}" target="_blank" style="background:var(--primary); color:white; text-decoration:none; padding:12px; border-radius:8px; text-align:center; font-size:12px; font-weight:700;">正答を検索</a>`;
+    if(!isC) sBtn.innerHTML += `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP '+txt)}" target="_blank" style="background:#e2e8f0; color:var(--text-main); text-decoration:none; padding:12px; border-radius:8px; text-align:center; font-size:12px; font-weight:700;">誤答を検索</a>`;
     localStorage.setItem('pmpProgress', JSON.stringify({ currentIndex: currentIndex + 1, currentQuiz }));
 }
 
 function nextQuestion() {
     currentIndex++;
     if(currentIndex < currentQuiz.length) renderQuestion();
-    else { localStorage.removeItem('pmpProgress'); alert("すべての問題を解き終わりました！"); showHome(); }
+    else { localStorage.removeItem('pmpProgress'); alert("Finish!"); showHome(); }
 }
 
 function resumeQuiz() {
@@ -294,7 +289,7 @@ function showQuizScreen() {
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('quiz-screen').classList.remove('hidden');
 }
-function confirmGoHome() { if (confirm("ホームに戻りますか？")) showHome(); }
+function confirmGoHome() { if (confirm("Home?")) showHome(); }
 function showCategoryMenu() {
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('category-screen').classList.remove('hidden');
@@ -313,14 +308,14 @@ function showStats() {
         const r = tbody.insertRow();
         const {correct:cor, total:tot} = scoreData[c];
         tc += cor; ta += tot;
-        r.innerHTML = `<td>${c}</td><td>${cor}/${tot}</td><td style="font-weight:700">${((cor/tot)*100).toFixed(1)}%</td>`;
+        r.innerHTML = `<td style="padding:10px;">${c}</td><td style="padding:10px;">${cor}/${tot}</td><td style="padding:10px; font-weight:700">${((cor/tot)*100).toFixed(1)}%</td>`;
     }
     const rate = ta > 0 ? ((tc / ta) * 100).toFixed(1) : 0;
     const isP = rate >= 70;
     const st = document.getElementById('total-status');
     st.style.background = isP ? "#dcfce7" : "#fee2e2";
     st.style.color = isP ? "#166534" : "#991b1b";
-    st.innerHTML = `<div style="font-size:12px; opacity:0.8">現在の総合正答率</div><div style="font-size:32px">${rate}%</div><div>${isP?'合格ライン(70%)突破！':'合格まであと少し！'}</div>`;
+    st.innerHTML = `<div style="font-size:12px; opacity:0.8">現在の総合正答率</div><div style="font-size:32px; font-weight:900;">${rate}%</div><div>${isP?'合格ライン突破！':'目標 70%'}</div>`;
 }
 
 initApp();
