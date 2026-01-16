@@ -26,13 +26,12 @@
             background: var(--bg-gradient); 
             color: var(--text-main);
             margin: 0; min-height: 100vh; display: flex; justify-content: center;
-            /* 全体的にフォントサイズと行間をアップ */
             line-height: 1.8;
             font-size: 17px;
         }
 
         .container { 
-            width: 100%; max-width: 650px; /* 少し幅を広げてゆとりを持たせる */
+            width: 100%; max-width: 650px;
             background: var(--glass-bg); padding: 40px 28px;
             border-radius: 24px; box-shadow: var(--card-shadow); margin: 20px 12px; align-self: flex-start;
         }
@@ -71,7 +70,6 @@
         .option-btn.correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
         .option-btn.wrong { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; }
 
-        /* モーダル */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.7); display: flex; justify-content: center; align-items: center;
@@ -82,7 +80,6 @@
             width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         }
         .modal-body { font-size: 17px; line-height: 1.8; color: var(--text-main); }
-        .modal-body h3 { font-size: 22px; margin-bottom: 20px; }
         .modal-body b { color: var(--primary); font-weight: 700; }
         .modal-body ul { padding-left: 0; list-style: none; margin-top: 24px; }
         .modal-body li { 
@@ -90,7 +87,6 @@
             border-radius: 12px; border-left: 6px solid var(--primary);
         }
 
-        /* 設問テキストの強調 */
         #question-text { 
             font-size: 21px; line-height: 1.6; font-weight: 700; margin-bottom: 32px; 
             color: var(--text-main);
@@ -105,7 +101,6 @@
 
         .hidden { display: none; }
 
-        /* 成績表の文字サイズ */
         #stats-table { font-size: 16px; }
         #stats-table th, #stats-table td { padding: 14px; }
     </style>
@@ -121,29 +116,15 @@
         <div class="menu-stack hidden" id="main-menu">
             <button class="btn-primary" onclick="startQuiz('order')">最初から解く</button>
             <button id="resume-btn" onclick="resumeQuiz()" class="btn-success" style="display:none;">前回の続きから解く</button>
+            
+            <button class="btn-warning" onclick="showCategoryMenu()">カテゴリで絞り込んで解く 🔍</button>
+            
             <button id="review-btn" onclick="startQuiz('review')" class="btn-danger hidden">間違えた問題を復習する (<span id="wrong-count">0</span>)</button>
-            <button class="btn-warning" onclick="showCategoryMenu()">カテゴリを選択して解く</button>
             <button onclick="startQuiz('random')">問題をランダムに解く</button>
             <button style="background: #f1f5f9;" onclick="showStats()">成績表・合格判定</button>
             <button class="btn-info" onclick="toggleModal(true)">✨ PMP合格に向けた最後のメッセージ</button>
         </div>
         <div id="loading-status" style="text-align:center; padding: 20px;">Loading assets...</div>
-    </div>
-
-    <div id="message-modal" class="modal-overlay hidden" onclick="toggleModal(false)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-body">
-                <h3 style="margin-top:0; color:var(--primary); text-align:center;">PMP合格へのマインドセット</h3>
-                <p>ここまで作成した問題集は、単なる知識の暗記ではなく、<b>「PMとしてどう判断すべきか（PM Mindset）」</b>を問うものばかりです。試験本番では、迷ったときに以下の原則を思い出してください。</p>
-                <ul>
-                    <li>🔍 <b>常に影響を評価せよ</b><br><small>（いきなり行動せず、まずは状況を分析する）</small></li>
-                    <li>📢 <b>透明性を保て</b><br><small>（悪いニュースほど早く、オープンに共有する）</small></li>
-                    <li>💎 <b>価値に集中せよ</b><br><small>（形式的なドキュメントより、ビジネス成果を重視）</small></li>
-                    <li>🤝 <b>人々を尊重せよ</b><br><small>（命令ではなくサーバント・リーダーシップ）</small></li>
-                </ul>
-            </div>
-            <button class="btn-primary" onclick="toggleModal(false)" style="width:100%; margin-top:20px;">理解しました</button>
-        </div>
     </div>
 
     <div id="category-screen" class="hidden">
@@ -162,6 +143,22 @@
         </div>
     </div>
 
+    <div id="message-modal" class="modal-overlay hidden" onclick="toggleModal(false)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-body">
+                <h3 style="margin-top:0; color:var(--primary); text-align:center;">PMP合格へのマインドセット</h3>
+                <p><b>PM Mindset</b> を問う原則を思い出してください。</p>
+                <ul>
+                    <li>🔍 <b>常に影響を評価せよ</b></li>
+                    <li>📢 <b>透明性を保て</b></li>
+                    <li>💎 <b>価値に集中せよ</b></li>
+                    <li>🤝 <b>人々を尊重せよ</b></li>
+                </ul>
+            </div>
+            <button class="btn-primary" onclick="toggleModal(false)" style="width:100%; margin-top:20px;">理解しました</button>
+        </div>
+    </div>
+
     <div id="stats-screen" class="hidden">
         <div class="header-nav"><span class="category-tag">成績・合格判定</span><div class="home-icon" onclick="showHome()">🏠</div></div>
         <div id="total-status" style="padding:24px; border-radius:16px; text-align:center; font-weight:800; margin-bottom:24px;"></div>
@@ -170,7 +167,6 @@
 </div>
 
 <script>
-// ロジック（全コードをそのまま維持）
 let allQuestions = [], currentQuiz = [], currentIndex = 0;
 let scoreData = JSON.parse(localStorage.getItem('pmpStats')) || {};
 let wrongQuestionIds = JSON.parse(localStorage.getItem('pmpWrongIds')) || [];
@@ -232,9 +228,9 @@ function startQuiz(mode, catName = null) {
             currentQuiz = currentQuiz.concat(filtered);
         });
     } else if (mode === 'review') currentQuiz = allQuestions.filter(q => wrongQuestionIds.includes(q.id)).sort(() => Math.random() - 0.5);
-    else currentQuiz = allQuestions.filter(q => q.category === catName).sort(() => Math.random() - 0.5);
+    else if (mode === 'category') currentQuiz = allQuestions.filter(q => q.category === catName).sort(() => Math.random() - 0.5);
     
-    if (currentQuiz.length === 0) return alert("No questions.");
+    if (currentQuiz.length === 0) return alert("問題がありません。");
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('quiz-screen').classList.remove('hidden');
     renderQuestion();
@@ -289,26 +285,23 @@ function checkAnswer(k, q, txt) {
 function nextQuestion() {
     currentIndex++;
     if(currentIndex < currentQuiz.length) renderQuestion();
-    else { localStorage.removeItem('pmpProgress'); alert("Finish!"); showHome(); }
+    else { localStorage.removeItem('pmpProgress'); alert("すべての問題を解き終えました！"); showHome(); }
 }
 
-function resumeQuiz() {
-    const s = JSON.parse(localStorage.getItem('pmpProgress'));
-    if(s) { currentQuiz = s.currentQuiz; currentIndex = s.currentIndex; showQuizScreen(); renderQuestion(); }
-}
-function showQuizScreen() {
-    document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
-    document.getElementById('quiz-screen').classList.remove('hidden');
-}
-function confirmGoHome() { if (confirm("Homeに戻りますか？")) showHome(); }
 function showCategoryMenu() {
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('category-screen').classList.remove('hidden');
     const list = document.getElementById('category-list');
     const cats = [...new Set(allQuestions.map(q => q.category))];
     list.innerHTML = '';
-    cats.forEach(c => { const b = document.createElement('button'); b.innerText = c; b.onclick = () => startQuiz('category', c); list.appendChild(b); });
+    cats.forEach(c => { 
+        const b = document.createElement('button'); 
+        b.innerText = c; 
+        b.onclick = () => startQuiz('category', c); 
+        list.appendChild(b); 
+    });
 }
+
 function showStats() {
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('stats-screen').classList.remove('hidden');
@@ -328,6 +321,16 @@ function showStats() {
     st.style.color = isP ? "#166534" : "#991b1b";
     st.innerHTML = `<div style="font-size:14px; opacity:0.8">現在の総合正答率</div><div style="font-size:40px; font-weight:900;">${rate}%</div><div style="font-size:18px;">${isP?'合格ライン突破！':'目標 70%'}</div>`;
 }
+
+function resumeQuiz() {
+    const s = JSON.parse(localStorage.getItem('pmpProgress'));
+    if(s) { currentQuiz = s.currentQuiz; currentIndex = s.currentIndex; showQuizScreen(); renderQuestion(); }
+}
+function showQuizScreen() {
+    document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
+    document.getElementById('quiz-screen').classList.remove('hidden');
+}
+function confirmGoHome() { if (confirm("Homeに戻りますか？現在の進捗は保存されます。")) showHome(); }
 
 initApp();
 </script>
