@@ -3,226 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ビジネス法務3級 対策アプリ</title>
+    <title>PMP Ultimate Prep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --primary: #2c3e50; --secondary: #3498db; --success: #27ae60; --danger: #e74c3c; --bg: #f4f7f6; --text: #333;
+            --glass-bg: #ffffff;
+            --primary: #6366f1;
+            --primary-light: #eef2ff;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-main: #1e293b;
+            --text-sub: #475569;
+            --border-color: #e2e8f0;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
+
         body { 
-            /* フォントをより視認性の高いものに変更 */
-            font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; 
-            background: var(--bg); color: var(--text); margin: 0; padding: 10px; display: flex; justify-content: center;
-            line-height: 1.7; /* 全体的な行間を広げて読みやすく */
+            font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background: var(--bg-gradient); 
+            color: var(--text-main);
+            margin: 0; min-height: 100vh; display: flex; justify-content: center;
+            /* 全体的にフォントサイズと行間をアップ */
+            line-height: 1.8;
+            font-size: 17px;
         }
+
         .container { 
-            width: 100%; max-width: 700px; background: #fff; padding: 30px 25px; border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-top: 10px; position: relative;
-            min-height: 500px;
+            width: 100%; max-width: 650px; /* 少し幅を広げてゆとりを持たせる */
+            background: var(--glass-bg); padding: 40px 28px;
+            border-radius: 24px; box-shadow: var(--card-shadow); margin: 20px 12px; align-self: flex-start;
         }
 
-        /* タイトルを大きく */
-        h1 { font-size: 26px; text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 28px; font-weight: 900; text-align: center; margin-bottom: 32px; letter-spacing: -0.02em; }
 
-        /* ダッシュボード */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
+        .dashboard { display: flex; gap: 16px; margin-bottom: 32px; }
+        .stat-card {
+            flex: 1; background: #f8fafc; padding: 20px 12px; border-radius: 16px;
+            border: 1px solid var(--border-color); text-align: center;
         }
-        .stat-item { text-align: center; }
-        .stat-value { display: block; font-size: 2rem; font-weight: bold; color: var(--secondary); }
-        .stat-label { font-size: 13px; color: #7f8c8d; font-weight: bold; }
+        .stat-value { display: block; font-size: 28px; font-weight: 800; color: var(--primary); font-family: 'Inter', sans-serif; }
+        .stat-label { font-size: 13px; font-weight: 700; color: var(--text-sub); }
 
-        .quiz-header {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f0f0f0;
-        }
-        .info-area { flex: 1; padding-right: 10px; }
-        .id-progress { font-size: 14px; color: #7f8c8d; display: block; margin-bottom: 6px; }
-        .category-name { font-size: 18px; font-weight: bold; color: var(--primary); line-height: 1.4; }
-
-        .btn-home-icon { 
-            background: #95a5a6; width: 45px; height: 45px; min-width: 45px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; border-radius: 50%; border: none; cursor: pointer; color: white;
-        }
-
-        .menu-stack { display: flex; flex-direction: column; gap: 15px; }
+        .menu-stack { display: flex; flex-direction: column; gap: 16px; }
         button { 
-            padding: 18px; font-size: 18px; font-weight: bold; cursor: pointer; border: none; 
-            border-radius: 12px; transition: all 0.2s; background: var(--secondary); color: white;
-            -webkit-tap-highlight-color: transparent;
+            padding: 20px; font-size: 18px; font-weight: 700; cursor: pointer; border: none; 
+            border-radius: 16px; transition: all 0.2s; background: #fff; border: 1px solid var(--border-color);
+            font-family: inherit;
         }
-        .btn-resume { background: #2ecc71 !important; }
-        .btn-review { background: #e74c3c !important; }
-        .btn-category { background: #9b59b6 !important; }
-        .btn-random { background: #e67e22 !important; }
-        .btn-stats { background: #f1c40f !important; color: #333 !important; }
-        .hidden { display: none; }
-
-        /* 問題文を強調・拡大 */
-        #question-text { 
-            font-size: 20px; /* 17pxから拡大 */
-            font-weight: bold; 
-            margin-bottom: 25px; 
-            line-height: 1.6; 
-            color: #000; /* より濃い黒に */
-        }
-
-        /* 選択肢を拡大 */
-        .option-btn { 
-            display: block; width: 100%; text-align: left; margin: 12px 0; padding: 18px; 
-            background: #fff; color: var(--text); border: 2px solid #edf2f7; border-radius: 10px; 
-            font-size: 17px; /* 15pxから拡大 */
-            line-height: 1.5;
-            font-weight: 500;
-        }
-        .option-btn.correct { background: var(--success) !important; color: white; border-color: var(--success); }
-        .option-btn.wrong { background: var(--danger) !important; color: white; border-color: var(--danger); }
         
-        /* 解説を拡大 */
-        .result-box { margin-top: 25px; padding: 20px; border-radius: 10px; background: #f8fafc; border-left: 6px solid #cbd5e0; }
-        .result-box strong { font-size: 20px; } /* 正解・不正解のラベルを大きく */
-        .result-box p { margin-top: 12px; font-size: 16px; color: #333; line-height: 1.7; }
+        .btn-primary { background: var(--primary); color: white; border: none; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2); }
+        .btn-success { background: var(--success); color: white; border: none; }
+        .btn-danger { background: #fee2e2; color: var(--danger); border: none; }
+        .btn-warning { background: #fef3c7; color: #92400e; border: none; }
+        .btn-info { background: #f8fafc; color: #475569; border: 1px dashed #cbd5e0; margin-top: 10px; font-size: 16px; }
 
-        .search-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-        .search-link { 
-            flex: 1; min-width: 150px; text-align: center; padding: 12px; background: #4285f4; 
-            color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: bold;
-            display: flex; align-items: center; justify-content: center;
+        .option-btn {
+            display: block; width: 100%; text-align: left;
+            background: #fff; border: 2px solid #f1f5f9; 
+            margin-bottom: 16px; font-size: 18px; padding: 22px;
+            color: var(--text-main); font-weight: 500;
+            line-height: 1.5;
         }
+        .option-btn:hover:not([disabled]) { border-color: var(--primary); background: var(--primary-light); }
+        .option-btn.correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
+        .option-btn.wrong { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; }
+
+        /* モーダル */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.7); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; padding: 20px; backdrop-filter: blur(6px);
+        }
+        .modal-content {
+            background: white; padding: 40px; border-radius: 28px; max-width: 550px;
+            width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        .modal-body { font-size: 17px; line-height: 1.8; color: var(--text-main); }
+        .modal-body h3 { font-size: 22px; margin-bottom: 20px; }
+        .modal-body b { color: var(--primary); font-weight: 700; }
+        .modal-body ul { padding-left: 0; list-style: none; margin-top: 24px; }
+        .modal-body li { 
+            margin-bottom: 16px; padding: 16px; background: #f8fafc; 
+            border-radius: 12px; border-left: 6px solid var(--primary);
+        }
+
+        /* 設問テキストの強調 */
+        #question-text { 
+            font-size: 21px; line-height: 1.6; font-weight: 700; margin-bottom: 32px; 
+            color: var(--text-main);
+        }
+
+        .header-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .category-tag { background: var(--primary-light); color: var(--primary); padding: 8px 18px; border-radius: 99px; font-size: 14px; font-weight: 700; }
+        .home-icon { width: 50px; height: 50px; background: #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 24px; }
+
+        .feedback-card { padding: 20px; background: #f8fafc; border-radius: 16px; margin-top: 20px; }
+        #result-msg p { font-size: 16px; margin-top: 12px; }
+
+        .hidden { display: none; }
 
         /* 成績表の文字サイズ */
         #stats-table { font-size: 16px; }
-        #stats-table th, #stats-table td { padding: 12px 8px; }
-
-        @media (max-width: 480px) {
-            .container { padding: 20px 15px; border-radius: 0; min-height: 100vh; margin-top: 0; }
-            #question-text { font-size: 19px; }
-            .option-btn { font-size: 16px; }
-        }
+        #stats-table th, #stats-table td { padding: 14px; }
     </style>
 </head>
 <body>
-
-<div class="container">
+    <div class="container">
     <div id="home-screen">
-        <h1>ビジネス法務3級<br>学習ナビ</h1>
-        
+        <h1>PMP Ultimate Prep</h1>
         <div id="dashboard" class="dashboard hidden">
-            <div class="stat-item">
-                <span class="stat-label">学習進捗率</span>
-                <span id="overall-progress" class="stat-value">0%</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">平均正解率</span>
-                <span id="overall-accuracy" class="stat-value">0%</span>
-            </div>
+            <div class="stat-card"><span id="overall-progress" class="stat-value">0%</span><span class="stat-label">学習進捗率</span></div>
+            <div class="stat-card"><span id="overall-accuracy" class="stat-value">0%</span><span class="stat-label">平均正解率</span></div>
         </div>
-
-        <div id="loading-status" style="text-align:center; padding:30px; font-weight: bold;">データを読み込んでいます...</div>
-        
         <div class="menu-stack hidden" id="main-menu">
-            <button onclick="startQuiz('order')">最初から解く</button>
-            <button id="resume-btn" onclick="resumeQuiz()" class="btn-resume" style="display:none;">前回の続きから解く</button>
-            <button id="review-btn" onclick="startQuiz('review')" class="btn-review hidden">間違えた問題を復習する (<span id="wrong-count">0</span>)</button>
-            <button onclick="showCategoryMenu()" class="btn-category">カテゴリを選択して解く</button>
-            <button onclick="startQuiz('random')" class="btn-random">問題をランダムに解く</button>
-            <button onclick="showStats()" class="btn-stats">成績表・合格判定</button>
+            <button class="btn-primary" onclick="startQuiz('order')">最初から解く</button>
+            <button id="resume-btn" onclick="resumeQuiz()" class="btn-success" style="display:none;">前回の続きから解く</button>
+            <button id="review-btn" onclick="startQuiz('review')" class="btn-danger hidden">間違えた問題を復習する (<span id="wrong-count">0</span>)</button>
+            <button class="btn-warning" onclick="showCategoryMenu()">カテゴリを選択して解く</button>
+            <button onclick="startQuiz('random')">問題をランダムに解く</button>
+            <button style="background: #f1f5f9;" onclick="showStats()">成績表・合格判定</button>
+            <button class="btn-info" onclick="toggleModal(true)">✨ PMP合格に向けた最後のメッセージ</button>
+        </div>
+        <div id="loading-status" style="text-align:center; padding: 20px;">Loading assets...</div>
+    </div>
+
+    <div id="message-modal" class="modal-overlay hidden" onclick="toggleModal(false)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-body">
+                <h3 style="margin-top:0; color:var(--primary); text-align:center;">PMP合格へのマインドセット</h3>
+                <p>ここまで作成した問題集は、単なる知識の暗記ではなく、<b>「PMとしてどう判断すべきか（PM Mindset）」</b>を問うものばかりです。試験本番では、迷ったときに以下の原則を思い出してください。</p>
+                <ul>
+                    <li>🔍 <b>常に影響を評価せよ</b><br><small>（いきなり行動せず、まずは状況を分析する）</small></li>
+                    <li>📢 <b>透明性を保て</b><br><small>（悪いニュースほど早く、オープンに共有する）</small></li>
+                    <li>💎 <b>価値に集中せよ</b><br><small>（形式的なドキュメントより、ビジネス成果を重視）</small></li>
+                    <li>🤝 <b>人々を尊重せよ</b><br><small>（命令ではなくサーバント・リーダーシップ）</small></li>
+                </ul>
+            </div>
+            <button class="btn-primary" onclick="toggleModal(false)" style="width:100%; margin-top:20px;">理解しました</button>
         </div>
     </div>
 
     <div id="category-screen" class="hidden">
-        <div class="quiz-header">
-            <div class="info-area"><span class="category-name">カテゴリ選択</span></div>
-            <button class="btn-home-icon" onclick="showHome()">🏠</button>
-        </div>
+        <div class="header-nav"><span class="category-tag">カテゴリ選択</span><div class="home-icon" onclick="showHome()">🏠</div></div>
         <div id="category-list" class="menu-stack"></div>
     </div>
 
     <div id="quiz-screen" class="hidden">
-        <div class="quiz-header">
-            <div class="info-area">
-                <span id="progress-text" class="id-progress"></span>
-                <span id="category-label" class="category-name"></span>
-            </div>
-            <button class="btn-home-icon" onclick="confirmGoHome()">🏠</button>
-        </div>
+        <div class="header-nav"><div id="progress-text" style="font-size:14px; font-weight:700; color:var(--text-sub);"></div><div class="home-icon" onclick="confirmGoHome()">🏠</div></div>
+        <div id="category-label" class="category-tag" style="margin-bottom:16px;"></div>
         <div id="question-text"></div>
         <div id="options-container"></div>
         <div id="feedback-container" class="hidden">
-            <div id="result-msg" class="result-box"></div>
-            <div class="search-actions" id="search-buttons"></div>
-            <button onclick="nextQuestion()" style="width:100%; margin-top:30px; padding:20px; background:var(--primary); font-size: 18px;">次の問題へ ➔</button>
+            <div class="feedback-card"><div id="result-msg"></div><div id="search-buttons" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px;"></div></div>
+            <button class="btn-primary" onclick="nextQuestion()" style="width:100%; margin-top:24px;">次の問題へ</button>
         </div>
     </div>
 
     <div id="stats-screen" class="hidden">
-        <div class="quiz-header">
-            <div class="info-area"><span class="category-name">成績表・合格判定</span></div>
-            <button class="btn-home-icon" onclick="showHome()">🏠</button>
-        </div>
-        <div id="total-status" style="padding:20px; border-radius:10px; text-align:center; font-weight:bold; margin-bottom:25px; font-size: 18px;"></div>
-        <div style="overflow-x: auto;">
-            <table style="width:100%; border-collapse: collapse;" id="stats-table">
-                <thead style="border-bottom:2px solid #eee; text-align: left;"><tr><th>カテゴリ</th><th>正解/解答</th><th>率</th></tr></thead>
-                <tbody></tbody>
-            </table>
-        </div>
+        <div class="header-nav"><span class="category-tag">成績・合格判定</span><div class="home-icon" onclick="showHome()">🏠</div></div>
+        <div id="total-status" style="padding:24px; border-radius:16px; text-align:center; font-weight:800; margin-bottom:24px;"></div>
+        <table id="stats-table" style="width:100%; border-collapse:collapse;"><thead><tr style="color:var(--text-sub); text-align:left;"><th>カテゴリ</th><th>正解</th><th>率</th></tr></thead><tbody></tbody></table>
     </div>
 </div>
 
 <script>
-// 以下、ロジック部分は一切変更していません
-let allQuestions = [];
-let currentQuiz = [];
-let currentIndex = 0;
-let scoreData = JSON.parse(localStorage.getItem('bizLawStats')) || {};
-let wrongQuestionIds = JSON.parse(localStorage.getItem('bizLawWrongIds')) || [];
-let answeredQuestionIds = JSON.parse(localStorage.getItem('bizLawAnsweredIds')) || [];
+// ロジック（全コードをそのまま維持）
+let allQuestions = [], currentQuiz = [], currentIndex = 0;
+let scoreData = JSON.parse(localStorage.getItem('pmpStats')) || {};
+let wrongQuestionIds = JSON.parse(localStorage.getItem('pmpWrongIds')) || [];
+let answeredQuestionIds = JSON.parse(localStorage.getItem('pmpAnsweredIds')) || [];
+
+function toggleModal(show) { document.getElementById('message-modal').classList.toggle('hidden', !show); }
+function cleanStr(str) { if (!str) return ""; return str.toString().replace(/\\"/g, '"').replace(/^"/, '').replace(/"$/, '').trim(); }
 
 async function initApp() {
     try {
-        const response = await fetch('./biz3class.json');
-        if (!response.ok) throw new Error('JSON読み込み失敗');
-        const data = await response.json();
-        allQuestions = data.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        const response = await fetch('./PMP.json');
+        const rawData = await response.json();
+        allQuestions = rawData.map((q, idx) => {
+            const getVal = (k) => q[k] || q[`"${k}"`] || q[`\\"${k}\\"`];
+            return {
+                id: idx,
+                category: cleanStr(getVal("Category")),
+                question: cleanStr(getVal("Question")),
+                options: { A: cleanStr(getVal("Option_A")), B: cleanStr(getVal("Option_B")), C: cleanStr(getVal("Option_C")), D: cleanStr(getVal("Option_D")) },
+                answer: cleanStr(getVal("Answer")).toUpperCase().replace(/[^A-D]/g, ''),
+                explanation: cleanStr(getVal("Explanation"))
+            };
+        });
         document.getElementById('loading-status').classList.add('hidden');
         document.getElementById('main-menu').classList.remove('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
         updateHomeUI();
-    } catch (err) {
-        document.getElementById('loading-status').innerHTML = "⚠️ JSON読み込みエラー";
-    }
+    } catch (err) { document.getElementById('loading-status').innerText = "⚠️ JSON load error."; }
 }
 
 function updateHomeUI() {
-    const totalCount = allQuestions.length;
-    const answeredCount = answeredQuestionIds.length;
-    const progressPercent = totalCount > 0 ? Math.round((answeredCount / totalCount) * 100) : 0;
-    document.getElementById('overall-progress').innerText = progressPercent + "%";
-
-    let totalCorrect = 0, totalAnswered = 0;
-    for(let cat in scoreData) {
-        totalCorrect += scoreData[cat].correct;
-        totalAnswered += scoreData[cat].total;
-    }
-    const accuracyPercent = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
-    document.getElementById('overall-accuracy').innerText = accuracyPercent + "%";
-
-    document.getElementById('resume-btn').style.display = localStorage.getItem('bizLawProgress') ? 'block' : 'none';
-    const reviewBtn = document.getElementById('review-btn');
+    const total = allQuestions.length;
+    document.getElementById('overall-progress').innerText = total > 0 ? Math.round((answeredQuestionIds.length / total) * 100) + "%" : "0%";
+    let tc = 0, ta = 0;
+    for(let c in scoreData) { tc += scoreData[c].correct; ta += scoreData[c].total; }
+    document.getElementById('overall-accuracy').innerText = ta > 0 ? Math.round((tc / ta) * 100) + "%" : "0%";
+    document.getElementById('resume-btn').style.display = localStorage.getItem('pmpProgress') ? 'block' : 'none';
+    const rb = document.getElementById('review-btn');
     if (wrongQuestionIds.length > 0) {
-        reviewBtn.classList.remove('hidden');
+        rb.classList.remove('hidden');
         document.getElementById('wrong-count').innerText = wrongQuestionIds.length;
-    } else {
-        reviewBtn.classList.add('hidden');
-    }
+    } else rb.classList.add('hidden');
 }
 
 function showHome() {
@@ -231,18 +221,20 @@ function showHome() {
     updateHomeUI();
 }
 
-function confirmGoHome() {
-    if (confirm("表紙に戻りますか？（進捗は保存されます）")) showHome();
-}
-
 function startQuiz(mode, catName = null) {
     currentIndex = 0;
     if (mode === 'random') currentQuiz = [...allQuestions].sort(() => Math.random() - 0.5);
-    else if (mode === 'order') currentQuiz = [...allQuestions];
-    else if (mode === 'review') currentQuiz = allQuestions.filter(q => wrongQuestionIds.includes(q.id)).sort(() => Math.random() - 0.5);
-    else currentQuiz = allQuestions.filter(q => q.category === catName);
+    else if (mode === 'order') {
+        const cats = [...new Set(allQuestions.map(q => q.category))];
+        currentQuiz = [];
+        cats.forEach(c => {
+            const filtered = allQuestions.filter(q => q.category === c).sort(() => Math.random() - 0.5);
+            currentQuiz = currentQuiz.concat(filtered);
+        });
+    } else if (mode === 'review') currentQuiz = allQuestions.filter(q => wrongQuestionIds.includes(q.id)).sort(() => Math.random() - 0.5);
+    else currentQuiz = allQuestions.filter(q => q.category === catName).sort(() => Math.random() - 0.5);
     
-    if (currentQuiz.length === 0) return alert("問題がありません。");
+    if (currentQuiz.length === 0) return alert("No questions.");
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('quiz-screen').classList.remove('hidden');
     renderQuestion();
@@ -250,120 +242,91 @@ function startQuiz(mode, catName = null) {
 
 function renderQuestion() {
     const q = currentQuiz[currentIndex];
-    document.getElementById('progress-text').innerText = `問題 ID:${q.id} (${currentIndex + 1}/${currentQuiz.length})`;
+    document.getElementById('progress-text').innerText = `${currentIndex + 1} / ${currentQuiz.length}`;
     document.getElementById('category-label').innerText = q.category;
     document.getElementById('question-text').innerText = q.question;
     document.getElementById('feedback-container').classList.add('hidden');
-    
-    const opts = [
-        { text: q.option1, num: 1 }, { text: q.option2, num: 2 },
-        { text: q.option3, num: 3 }, { text: q.option4, num: 4 }
-    ].sort(() => Math.random() - 0.5);
-
+    const opts = Object.entries(q.options).map(([k, v]) => ({ k, v })).sort(() => Math.random() - 0.5);
     const container = document.getElementById('options-container');
     container.innerHTML = '';
     opts.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
-        btn.innerText = opt.text;
-        btn.onclick = () => checkAnswer(opt.num, q, opt.text);
+        btn.innerText = opt.v;
+        btn.onclick = () => checkAnswer(opt.k, q, opt.v);
         container.appendChild(btn);
     });
-    window.scrollTo(0,0);
 }
 
-function checkAnswer(selectedNum, q, selectedText) {
-    const isCorrect = (selectedNum === q.answer);
-    const correctText = q[`option${q.answer}`];
-    
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.disabled = true;
-        if (btn.innerText === correctText) btn.classList.add('correct');
-        if (btn.innerText === selectedText && !isCorrect) btn.classList.add('wrong');
+function checkAnswer(k, q, txt) {
+    const isC = (k === q.answer);
+    const cTxt = q.options[q.answer];
+    document.querySelectorAll('.option-btn').forEach(b => {
+        b.disabled = true;
+        if (b.innerText === cTxt) b.classList.add('correct');
+        if (b.innerText === txt && !isC) b.classList.add('wrong');
     });
-
     if(!scoreData[q.category]) scoreData[q.category] = { correct: 0, total: 0 };
     scoreData[q.category].total++;
-    if(isCorrect) scoreData[q.category].correct++;
-    localStorage.setItem('bizLawStats', JSON.stringify(scoreData));
-
+    if(isC) scoreData[q.category].correct++;
+    localStorage.setItem('pmpStats', JSON.stringify(scoreData));
     if (!answeredQuestionIds.includes(q.id)) {
         answeredQuestionIds.push(q.id);
-        localStorage.setItem('bizLawAnsweredIds', JSON.stringify(answeredQuestionIds));
+        localStorage.setItem('pmpAnsweredIds', JSON.stringify(answeredQuestionIds));
     }
-
-    if (isCorrect) wrongQuestionIds = wrongQuestionIds.filter(id => id !== q.id);
+    if (isC) wrongQuestionIds = wrongQuestionIds.filter(id => id !== q.id);
     else if (!wrongQuestionIds.includes(q.id)) wrongQuestionIds.push(q.id);
-    localStorage.setItem('bizLawWrongIds', JSON.stringify(wrongQuestionIds));
+    localStorage.setItem('pmpWrongIds', JSON.stringify(wrongQuestionIds));
 
     document.getElementById('feedback-container').classList.remove('hidden');
-    document.getElementById('result-msg').innerHTML = `
-        <strong style="color:${isCorrect ? 'var(--success)' : 'var(--danger)'}; font-size:1.4rem;">${isCorrect ? '⭕ 正解' : '❌ 不正解'}</strong>
-        <p style="margin-top:10px; font-size:16px; color:#333;">${q.explanation}</p>`;
-
-    const searchArea = document.getElementById('search-buttons');
-    searchArea.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent('ビジネス実務法務3級 ' + correctText)}" target="_blank" class="search-link">🔎 正答を検索</a>`;
-    if(!isCorrect) searchArea.innerHTML += `<a href="https://www.google.com/search?q=${encodeURIComponent('ビジネス実務法務3級 ' + selectedText)}" target="_blank" class="search-link" style="background:#ea4335">🔎 誤答を検索</a>`;
-
-    localStorage.setItem('bizLawProgress', JSON.stringify({ currentIndex: currentIndex + 1, currentQuiz }));
+    document.getElementById('result-msg').innerHTML = `<b style="font-size:20px; color:${isC?'var(--success)':'var(--danger)'}">${isC?'⭕ 正解':'❌ 不正解'}</b><p style="font-size:16px; margin-top:10px; line-height:1.7;">${q.explanation}</p>`;
+    const sBtn = document.getElementById('search-buttons');
+    sBtn.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP '+cTxt)}" target="_blank" style="background:var(--primary); color:white; text-decoration:none; padding:14px; border-radius:10px; text-align:center; font-size:14px; font-weight:700;">正答を検索</a>`;
+    if(!isC) sBtn.innerHTML += `<a href="https://www.google.com/search?q=${encodeURIComponent('PMP '+txt)}" target="_blank" style="background:#e2e8f0; color:var(--text-main); text-decoration:none; padding:14px; border-radius:10px; text-align:center; font-size:14px; font-weight:700;">誤答を検索</a>`;
+    localStorage.setItem('pmpProgress', JSON.stringify({ currentIndex: currentIndex + 1, currentQuiz }));
 }
 
 function nextQuestion() {
     currentIndex++;
     if(currentIndex < currentQuiz.length) renderQuestion();
-    else {
-        localStorage.removeItem('bizLawProgress');
-        alert("セッション終了。成績を確認しましょう。");
-        showStats();
-    }
+    else { localStorage.removeItem('pmpProgress'); alert("Finish!"); showHome(); }
 }
 
 function resumeQuiz() {
-    const saved = JSON.parse(localStorage.getItem('bizLawProgress'));
-    if(saved) {
-        currentQuiz = saved.currentQuiz;
-        currentIndex = saved.currentIndex;
-        document.getElementById('home-screen').classList.add('hidden');
-        document.getElementById('quiz-screen').classList.remove('hidden');
-        renderQuestion();
-    }
+    const s = JSON.parse(localStorage.getItem('pmpProgress'));
+    if(s) { currentQuiz = s.currentQuiz; currentIndex = s.currentIndex; showQuizScreen(); renderQuestion(); }
 }
-
+function showQuizScreen() {
+    document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
+    document.getElementById('quiz-screen').classList.remove('hidden');
+}
+function confirmGoHome() { if (confirm("Homeに戻りますか？")) showHome(); }
 function showCategoryMenu() {
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('category-screen').classList.remove('hidden');
     const list = document.getElementById('category-list');
-    const categories = [...new Set(allQuestions.map(q => q.category))];
+    const cats = [...new Set(allQuestions.map(q => q.category))];
     list.innerHTML = '';
-    categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.innerText = cat;
-        btn.onclick = () => startQuiz('category', cat);
-        list.appendChild(btn);
-    });
+    cats.forEach(c => { const b = document.createElement('button'); b.innerText = c; b.onclick = () => startQuiz('category', c); list.appendChild(b); });
 }
-
 function showStats() {
     document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
     document.getElementById('stats-screen').classList.remove('hidden');
     const tbody = document.querySelector('#stats-table tbody');
     tbody.innerHTML = '';
-    let totalCorrect = 0, totalAnswered = 0;
-    for(let cat in scoreData) {
-        const row = tbody.insertRow();
-        const {correct, total} = scoreData[cat];
-        totalCorrect += correct; totalAnswered += total;
-        row.insertCell(0).innerText = cat;
-        row.insertCell(1).innerText = `${correct}/${total}`;
-        row.insertCell(2).innerText = `${((correct / total) * 100).toFixed(1)}%`;
+    let tc = 0, ta = 0;
+    for(let c in scoreData) {
+        const r = tbody.insertRow();
+        const {correct:cor, total:tot} = scoreData[c];
+        tc += cor; ta += tot;
+        r.innerHTML = `<td style="padding:14px;">${c}</td><td style="padding:14px;">${cor}/${tot}</td><td style="padding:14px; font-weight:700">${((cor/tot)*100).toFixed(1)}%</td>`;
     }
-    const statusDiv = document.getElementById('total-status');
-    if (totalAnswered > 0) {
-        const rate = ((totalCorrect / totalAnswered) * 100).toFixed(1);
-        const isPass = rate >= 70;
-        statusDiv.style.background = isPass ? "#d4edda" : "#f8d7da";
-        statusDiv.innerHTML = `総合正答率: ${rate}%<br>${isPass ? '🎉 合格圏内！' : '💪 あと少し！'}`;
-    } else statusDiv.innerHTML = "データがありません。";
+    const rate = ta > 0 ? ((tc / ta) * 100).toFixed(1) : 0;
+    const isP = rate >= 70;
+    const st = document.getElementById('total-status');
+    st.style.background = isP ? "#dcfce7" : "#fee2e2";
+    st.style.color = isP ? "#166534" : "#991b1b";
+    st.innerHTML = `<div style="font-size:14px; opacity:0.8">現在の総合正答率</div><div style="font-size:40px; font-weight:900;">${rate}%</div><div style="font-size:18px;">${isP?'合格ライン突破！':'目標 70%'}</div>`;
 }
 
 initApp();
